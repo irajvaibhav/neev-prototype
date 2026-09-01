@@ -994,7 +994,7 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 
 <!-- ===== GRIEVANCE ===== -->
 <div class="screen" id="s-grievance">
-  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-profile')">←</button><h2>Raise a complaint</h2></div><button class="icon-btn" onclick="speakScreen('s-grievance')">🔊</button></div>
+  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-profile')">←</button><h2>Chat with us</h2></div><button class="icon-btn" onclick="speakScreen('s-grievance')">🔊</button></div>
   <p class="muted" style="margin-bottom:14px;">Tell us what went wrong. Every complaint gets a ticket number and response within 2 working days.</p>
   <label class="field-label">Type of complaint</label>
   <select id="grievanceType" style="margin-bottom:12px;">
@@ -1095,9 +1095,9 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
     <div style="flex:1;"><b style="font-size:14px;">My documents</b><p class="muted" style="font-size:12px;">T2E agreement, statements, repayment schedules</p></div>
     <span style="color:var(--teal-700);font-weight:700;">→</span>
   </div>
-  <div class="company-item" onclick="go('s-grievance')" style="margin-bottom:9px;">
-    <div class="scheme-ic" style="background:#FCEBE3;color:var(--danger);">⚠️</div>
-    <div style="flex:1;"><b style="font-size:14px;">Raise a complaint</b><p class="muted" style="font-size:12px;">Wrong deduction, delayed credit, charge dispute</p></div>
+  <div class="company-item" onclick="openCustomerCareModal()" style="margin-bottom:9px;">
+    <div class="scheme-ic" style="background:#FCEBE3;color:var(--danger);">🎧</div>
+    <div style="flex:1;"><b style="font-size:14px;">Customer Care</b><p class="muted" style="font-size:12px;">Wrong deduction, delayed credit, charge dispute</p></div>
     <span style="color:var(--teal-700);font-weight:700;">→</span>
   </div>
   <div class="company-item" onclick="openLangModal()">
@@ -1121,6 +1121,16 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="modal-bg" id="customerCareModal">
+  <div class="modal-box">
+    <div style="font-size:30px;">🎧</div>
+    <h2 style="margin:10px 0 6px;font-size:17px;">Customer Care</h2>
+    <p class="muted" style="margin-bottom:14px;">How would you like to reach us?</p>
+    <button class="btn btn-primary" onclick="hideCustomerCareModal();go('s-grievance')">💬 Chat with us</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-outline" onclick="hideCustomerCareModal();showModal()">📞 Call support</button>
+  </div>
+</div>
 <div class="modal-bg" id="supportModal">
   <div class="modal-box">
     <div style="font-size:30px;">📞</div>

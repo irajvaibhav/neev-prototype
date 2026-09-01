@@ -21,7 +21,7 @@ function saveAppState(){
   try{
     const activeEl=document.querySelector('.screen.active');
     const bottomNavVisible=document.getElementById('bottomNav').style.display==='flex';
-    localStorage.setItem('neev_employee_state',JSON.stringify({S:S,activeScreen:activeEl?activeEl.id:'s-splash',bottomNavVisible:bottomNavVisible}));
+    localStorage.setItem('neev_employee_state_v2',JSON.stringify({S:S,activeScreen:activeEl?activeEl.id:'s-splash',bottomNavVisible:bottomNavVisible}));
   }catch(e){}
 }
 function applyProfileFields(){
@@ -43,7 +43,7 @@ function applyProfileFields(){
 }
 function restoreAppState(){
   try{
-    const raw=localStorage.getItem('neev_employee_state');
+    const raw=localStorage.getItem('neev_employee_state_v2');
     if(!raw) return false;
     const saved=JSON.parse(raw);
     Object.assign(S,saved.S);
@@ -60,6 +60,8 @@ function restoreAppState(){
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
 function showModal(){document.getElementById('supportModal').classList.add('show');}
 function hideModal(){document.getElementById('supportModal').classList.remove('show');}
+function openCustomerCareModal(){document.getElementById('customerCareModal').classList.add('show');}
+function hideCustomerCareModal(){document.getElementById('customerCareModal').classList.remove('show');}
 function openScheme(url){toast('Opening official website…');window.open(url,'_blank');}
 function otpMove(el){if(el.value&&el.nextElementSibling&&el.nextElementSibling.classList.contains('otpd'))el.nextElementSibling.focus();}
 
