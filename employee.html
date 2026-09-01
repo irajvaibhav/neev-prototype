@@ -1004,16 +1004,10 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 <button class="fab-support" onclick="showModal()" title="Call support">📞</button>
 
 <div class="bottomnav" id="bottomNav" style="display:none;">
-  <div class="navbtn-group">
-    <button class="navbtn active" data-target="s-home" onclick="navTo('s-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></button>
-    <button class="navbtn" data-target="s-ledger" onclick="navTo('s-ledger')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>Ledger</span></button>
-  </div>
-  <div class="navbtn-scan-wrap">
-    <button class="scan-fab" onclick="requireBank(openScanner)" title="Scan &amp; Pay">📷</button>
-  </div>
-  <div class="navbtn-group">
-    <button class="navbtn" data-target="s-profile" onclick="navTo('s-profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span>Profile</span></button>
-  </div>
+  <button class="navbtn active" data-target="s-home" onclick="navTo('s-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></button>
+  <button class="navbtn" data-target="s-ledger" onclick="navTo('s-ledger')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>Ledger</span></button>
+  <button class="navbtn" onclick="requireBank(openScanner)" title="Scan &amp; Pay"><span class="navbtn-scan-icon">📷</span><span>Scan</span></button>
+  <button class="navbtn" data-target="s-profile" onclick="navTo('s-profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span>Profile</span></button>
 </div>
 
 <div class="toast" id="toast"></div>
