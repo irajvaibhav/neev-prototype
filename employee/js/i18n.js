@@ -1,14 +1,32 @@
 // Neev Employee App — voice narration + language switching (language picker modal, text translation).
+// English + the 22 scheduled languages of India (Eighth Schedule) = 23, matching the badge count.
 const LANGS=[
-  {code:'en',name:'English',native:'English'},{code:'as',name:'Assamese',native:'অসমীয়া'},
-  {code:'bn',name:'Bengali',native:'বাংলা'},{code:'bho',name:'Bhojpuri',native:'भोजपुरी'},
-  {code:'doi',name:'Dogri',native:'डोगरी'},{code:'gu',name:'Gujarati',native:'ગુજરાતી'},
-  {code:'hi',name:'Hindi',native:'हिंदी'},{code:'kn',name:'Kannada',native:'ಕನ್ನಡ'},
-  {code:'ml',name:'Malayalam',native:'മലയാളം'},{code:'mr',name:'Marathi',native:'मराठी'},
-  {code:'pa',name:'Punjabi',native:'ਪੰਜਾਬੀ'},{code:'ta',name:'Tamil',native:'தமிழ்'},
-  {code:'te',name:'Telugu',native:'తెలుగు'}
+  {code:'en',name:'English',native:'English',flag:'🇬🇧'},
+  {code:'as',name:'Assamese',native:'অসমীয়া',flag:'🇮🇳'},
+  {code:'bn',name:'Bengali',native:'বাংলা',flag:'🇮🇳'},
+  {code:'brx',name:'Bodo',native:'बड़ो',flag:'🇮🇳'},
+  {code:'doi',name:'Dogri',native:'डोगरी',flag:'🇮🇳'},
+  {code:'gu',name:'Gujarati',native:'ગુજરાતી',flag:'🇮🇳'},
+  {code:'hi',name:'Hindi',native:'हिंदी',flag:'🇮🇳'},
+  {code:'kn',name:'Kannada',native:'ಕನ್ನಡ',flag:'🇮🇳'},
+  {code:'ks',name:'Kashmiri',native:'کٲشُر',flag:'🇮🇳'},
+  {code:'kok',name:'Konkani',native:'कोंकणी',flag:'🇮🇳'},
+  {code:'mai',name:'Maithili',native:'मैथिली',flag:'🇮🇳'},
+  {code:'ml',name:'Malayalam',native:'മലയാളം',flag:'🇮🇳'},
+  {code:'mni',name:'Manipuri',native:'মৈতৈলোন্',flag:'🇮🇳'},
+  {code:'mr',name:'Marathi',native:'मराठी',flag:'🇮🇳'},
+  {code:'ne',name:'Nepali',native:'नेपाली',flag:'🇮🇳'},
+  {code:'or',name:'Odia',native:'ଓଡ଼ିଆ',flag:'🇮🇳'},
+  {code:'pa',name:'Punjabi',native:'ਪੰਜਾਬੀ',flag:'🇮🇳'},
+  {code:'sa',name:'Sanskrit',native:'संस्कृतम्',flag:'🇮🇳'},
+  {code:'sat',name:'Santali',native:'संताली',flag:'🇮🇳'},
+  {code:'sd',name:'Sindhi',native:'سنڌي',flag:'🇮🇳'},
+  {code:'ta',name:'Tamil',native:'தமிழ்',flag:'🇮🇳'},
+  {code:'te',name:'Telugu',native:'తెలుగు',flag:'🇮🇳'},
+  {code:'ur',name:'Urdu',native:'اردو',flag:'🇮🇳'}
 ];
-const LOCALE={en:'en-IN',hi:'hi-IN',bn:'bn-IN',ta:'ta-IN',te:'te-IN',kn:'kn-IN',ml:'ml-IN',mr:'mr-IN',gu:'gu-IN',pa:'pa-IN',as:'as-IN',bho:'hi-IN',doi:'hi-IN'};
+const LOCALE={en:'en-IN',hi:'hi-IN',bn:'bn-IN',ta:'ta-IN',te:'te-IN',kn:'kn-IN',ml:'ml-IN',mr:'mr-IN',gu:'gu-IN',pa:'pa-IN',as:'as-IN',doi:'hi-IN',
+  brx:'hi-IN',ks:'ur-IN',kok:'mr-IN',mai:'hi-IN',mni:'bn-IN',ne:'ne-IN',or:'or-IN',sa:'hi-IN',sat:'hi-IN',sd:'ur-IN',ur:'ur-IN'};
 
 let activeSpeakBtn=null;
 function resetSpeakBtn(){if(activeSpeakBtn){activeSpeakBtn.textContent='🔊';activeSpeakBtn=null;}}
@@ -39,8 +57,12 @@ function renderLangList(){
   const list=document.getElementById('langList');list.innerHTML='';
   LANGS.filter(l=>l.name.toLowerCase().includes(term)||l.native.toLowerCase().includes(term)).forEach(l=>{
     const sel=l.code===S.voiceLang;
-    const d=document.createElement('div');d.className='company-item';d.style.justifyContent='space-between';
-    d.innerHTML=`<div style="display:flex;align-items:center;gap:12px;"><div class="company-logo" style="background:${sel?'var(--teal-700)':'var(--teal-100)'};color:${sel?'#fff':'var(--teal-700)'};font-size:14px;">${l.native.slice(0,2)}</div><div><b style="font-size:14px;">${l.native}</b><p class="muted" style="font-size:12px;">${l.name}</p></div></div>${sel?'<span style="color:var(--teal-700);font-weight:800;font-size:18px;">✓</span>':''}`;
+    const d=document.createElement('div');
+    d.className='company-item';
+    d.style.justifyContent='space-between';
+    d.style.border=sel?'1.5px solid var(--teal-700)':'1.6px solid var(--border)';
+    d.style.background=sel?'var(--teal-100)':'#fff';
+    d.innerHTML=`<div style="display:flex;align-items:center;gap:12px;"><div style="width:40px;height:28px;border-radius:6px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">${l.flag}</div><div><b style="font-size:14px;color:${sel?'var(--teal-900)':'var(--ink)'};">${l.native}</b><p class="muted" style="font-size:12px;">${l.name}</p></div></div>${sel?'<span style="width:24px;height:24px;border-radius:50%;background:var(--teal-700);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">✓</span>':''}`;
     d.onclick=()=>selectLanguage(l.code);list.appendChild(d);
   });
 }
@@ -166,9 +188,9 @@ function selectLanguage(code){
   document.getElementById('langSummaryName2').textContent=name;
   document.getElementById('langModal').classList.remove('show');
   // Apply text translation
-  const textLang=(code==='hi'||code==='bho'||code==='doi')?'hi':(code==='bn'||code==='as')?'bn':'en';
+  const textLang=(code==='hi'||code==='doi')?'hi':(code==='bn'||code==='as')?'bn':'en';
   applyTranslation(textLang);
-  if(code!=='en'&&code!=='hi'&&code!=='bn'&&code!=='bho'&&code!=='doi'&&code!=='as'&&code!=='none'){
+  if(code!=='en'&&code!=='hi'&&code!=='bn'&&code!=='doi'&&code!=='as'&&code!=='none'){
     toast(name+' voice enabled. Full text coming soon, showing English.');
   }
 }

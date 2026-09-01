@@ -1142,20 +1142,20 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 </div>
 <div class="modal-bg" id="langModal">
   <div class="modal-box" style="text-align:left;max-height:78%;display:flex;flex-direction:column;padding:0;overflow:hidden;">
-    <div style="padding:20px 20px 14px;text-align:center;border-bottom:1px solid var(--border);flex-shrink:0;">
-      <div style="width:46px;height:46px;border-radius:50%;background:var(--teal-100);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px;">🌐</div>
-      <h2 style="font-size:16.5px;">Choose Voice Language</h2>
-      <p class="muted" style="font-size:12px;margin-top:4px;">All languages supported.</p>
+    <div style="padding:24px 20px 14px;text-align:center;border-bottom:1px solid var(--border);flex-shrink:0;">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--teal-700);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;">🗣️</div>
+      <h2 style="font-size:17px;">Choose Voice Language</h2>
+      <p class="muted" style="font-size:12.5px;margin-top:6px;">Select the language for spoken loan guidance.<br>All languages are supported.</p>
     </div>
     <div style="padding:14px 20px 0;flex-shrink:0;">
       <input type="text" id="langSearch" placeholder="Search language..." oninput="renderLangList()" style="min-height:44px;padding:12px 14px;">
-      <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px;">🇮🇳 Indian Languages <span class="badge" style="padding:2px 8px;font-size:10px;">13</span></p>
+      <p style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px;">🇮🇳 Indian Languages <span class="badge" style="padding:2px 8px;font-size:10px;">23</span></p>
     </div>
     <div id="langList" style="overflow-y:auto;padding:2px 20px 10px;flex:1;"></div>
     <div style="padding:10px 20px 16px;border-top:1px solid var(--border);flex-shrink:0;">
-      <div class="company-item" onclick="selectLanguage('none')" style="margin-bottom:0;">
-        <div class="scheme-ic" style="background:#FCEBE3;font-size:16px;">🔇</div>
-        <div><b style="font-size:14px;">No voice</b><p class="muted" style="font-size:12px;">Text only</p></div>
+      <div class="company-item" onclick="selectLanguage('none')" style="margin-bottom:0;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;"><div class="scheme-ic" style="background:#FCEBE3;font-size:16px;">🔇</div><div><b style="font-size:14px;">No voice</b><p class="muted" style="font-size:12px;">Use text only, voice can be re-enabled anytime</p></div></div>
+        <span style="font-size:16px;color:var(--muted);">🔇</span>
       </div>
     </div>
   </div>
