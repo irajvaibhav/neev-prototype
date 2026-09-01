@@ -1,7 +1,7 @@
-// Neev Employee App — App Permissions: one consolidated page with toggles for Camera/Location/
-// SMS/Contacts (device access), same pattern as the later Data Permissions screen (Step 2 of 8).
-// Unlike Data Permissions, none of these are "Required" — declining one just degrades a feature
-// (e.g. no camera means manual PAN/Aadhaar entry), so Continue is never blocked here.
+// Neev Employee App — App Permissions (Step 2 of 8): one consolidated page with toggles for
+// Camera/Location/SMS/Contacts, asked after PAN+Aadhaar+Photo, right before login. None of
+// these are "Required" — declining one just degrades a feature (e.g. no camera means manual
+// PAN/Aadhaar entry), so Continue is never blocked here.
 const PERMISSIONS=[
   { key:'camera', icon:'📷', title:'Camera', desc:'Needed to scan your PAN, Aadhaar, and QR codes for bill payments.' },
   { key:'location', icon:'📍', title:'Location', desc:'Helps us verify your region and keep your account secure.' },
@@ -31,5 +31,5 @@ function toggleAllPermissions(){
   renderPermissions();
 }
 function continueFromPermissions(){
-  go('s-signup');
+  go('s-login');
 }

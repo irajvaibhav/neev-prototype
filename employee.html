@@ -43,12 +43,26 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
     <span style="color:var(--teal-700);font-weight:700;font-size:14px;">Change</span>
   </div>
   <div style="height:16px"></div>
-  <button class="btn btn-primary" onclick="startPermissions()">Continue</button>
+  <button class="btn btn-primary" onclick="go('s-signup')">Continue</button>
 </div>
 
-<!-- ===== APP PERMISSIONS (one page, all toggles — same pattern as Data Permissions) ===== -->
+<!-- ===== APP PERMISSIONS (one page, all toggles) — asked after Aadhaar, right before login ===== -->
 <div class="screen" id="s-permissions">
-  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-splash')">←</button><h2>App Permissions</h2></div></div>
+  <div class="fl-header"><div class="fl-brand">Neev <span class="fl-dot"></span></div><div class="fl-lang" onclick="openLangModal()">🌐 EN ▾</div></div>
+  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-identity-verify')">←</button><h2>App Permissions</h2></div></div>
+
+  <div class="wiz-progress">
+    <div class="wiz-progress-top"><span>Step <b>2</b> of 8 — App Permissions</span><span class="wiz-progress-pct">25%</span></div>
+    <div class="wiz-bar"><div class="wiz-bar-fill" style="width:25%;"></div></div>
+  </div>
+
+  <div class="voice-bar">
+    <span class="voice-lang-chip">🇬🇧 EN</span>
+    <button class="voice-play-btn" onclick="speakScreen('s-permissions')">▶</button>
+    <span class="voice-label">Tap to hear guidance</span>
+    <span class="voice-speaker" onclick="speakScreen('s-permissions')">🔊</span>
+  </div>
+
   <div>
     <div class="dp-hero">
       <span class="ic">🔐</span>
@@ -135,6 +149,7 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 
 <!-- ===== IDENTITY VERIFICATION (Step 1 of 8): PAN + Aadhaar + Photo, one continuous page ===== -->
 <div class="screen" id="s-identity-verify">
+  <div class="fl-header"><div class="fl-brand">Neev <span class="fl-dot"></span></div><div class="fl-lang" onclick="openLangModal()">🌐 EN ▾</div></div>
   <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-signup')">←</button><h2>Identify &amp; Verify</h2></div><button class="icon-btn" onclick="speakScreen('s-identity-verify')">🔊</button></div>
 
   <div class="wiz-progress">
@@ -263,79 +278,9 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
           <b style="margin-top:8px;">Face matched!</b>
           <p class="muted" style="font-size:13px;margin-top:4px;">Identity verification complete</p>
         </div>
-        <button class="btn btn-primary" onclick="renderDataPermissions();go('s-data-permissions')">Continue</button>
+        <button class="btn btn-primary" onclick="startPermissions()">Continue</button>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- ===== DATA PERMISSIONS (Step 2 of 8): one page, all toggles ===== -->
-<div class="screen" id="s-data-permissions">
-  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-identity-verify')">←</button><h2>Data Permissions</h2></div><button class="icon-btn" onclick="speakScreen('s-data-permissions')">🔊</button></div>
-
-  <div class="wiz-progress">
-    <div class="wiz-progress-top"><span>Step <b>2</b> of 8 — Data Permissions</span><span class="wiz-progress-pct">25%</span></div>
-    <div class="wiz-bar"><div class="wiz-bar-fill" style="width:25%;"></div></div>
-  </div>
-
-  <div class="voice-bar">
-    <span class="voice-lang-chip">🇬🇧 EN</span>
-    <button class="voice-play-btn" onclick="speakScreen('s-data-permissions')">▶</button>
-    <span class="voice-label">Tap to hear guidance</span>
-    <span class="voice-speaker" onclick="speakScreen('s-data-permissions')">🔊</span>
-  </div>
-
-  <div>
-    <div class="dp-hero">
-      <span class="ic">📋</span>
-      <div><b>Data Permissions</b><p>Review and authorise data access</p></div>
-    </div>
-
-    <div class="dp-counter">
-      <div class="dp-counter-top"><span>🛡️ <span id="dpGrantedCount">0</span> of 4 permissions granted</span></div>
-      <div class="wiz-bar"><div class="wiz-bar-fill" id="dpCounterBar" style="width:0%;"></div></div>
-    </div>
-
-    <div class="dp-grant-all" onclick="toggleAllDataPerms()" id="dpGrantAllBtn">Grant All Permissions</div>
-
-    <div class="dp-card">
-      <span class="ic">📊</span>
-      <div class="body">
-        <div class="head"><b>Credit Bureau Check</b><span class="dp-required">Required</span></div>
-        <p>Access your credit report from CIBIL, Experian, or Equifax to assess creditworthiness.</p>
-      </div>
-      <div class="dp-toggle" id="dpToggle-creditBureau" onclick="toggleDataPerm('creditBureau')"></div>
-    </div>
-
-    <div class="dp-card">
-      <span class="ic">🏦</span>
-      <div class="body">
-        <div class="head"><b>Bank Statement Analysis</b><span class="dp-required">Required</span></div>
-        <p>Fetch last 6 months' bank statements via Account Aggregator for income &amp; spending analysis.</p>
-      </div>
-      <div class="dp-toggle" id="dpToggle-bankStatement" onclick="toggleDataPerm('bankStatement')"></div>
-    </div>
-
-    <div class="dp-card">
-      <span class="ic">🏢</span>
-      <div class="body">
-        <div class="head"><b>Employer Payroll Access</b><span class="dp-required">Required</span></div>
-        <p>Verify your salary and attendance directly with your employer's HRMS, so we know exactly how much you've earned.</p>
-      </div>
-      <div class="dp-toggle" id="dpToggle-payroll" onclick="toggleDataPerm('payroll')"></div>
-    </div>
-
-    <div class="dp-card">
-      <span class="ic">💬</span>
-      <div class="body">
-        <div class="head"><b>SMS-based Income Signals</b><span class="dp-required">Required</span></div>
-        <p>Read bank &amp; salary SMS alerts as an additional income check, on top of your employer's records.</p>
-      </div>
-      <div class="dp-toggle" id="dpToggle-smsIncome" onclick="toggleDataPerm('smsIncome')"></div>
-    </div>
-
-    <div style="height:6px"></div>
-    <button class="btn btn-primary" id="dpContinueBtn" disabled onclick="continueFromDataPermissions()">Continue</button>
   </div>
 </div>
 
@@ -1206,7 +1151,6 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 <script src="employee/js/loyalty.js"></script>
 <script src="employee/js/i18n.js"></script>
 <script src="employee/js/signup.js"></script>
-<script src="employee/js/data-permissions.js"></script>
 <script src="employee/js/login.js"></script>
 <script src="employee/js/onboarding.js"></script>
 <script src="employee/js/home.js"></script>
