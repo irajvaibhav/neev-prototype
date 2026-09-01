@@ -16,7 +16,7 @@ function navTo(id){go(id);document.querySelectorAll('.navbtn').forEach(b=>b.clas
 // ===== RESUME WHERE YOU LEFT OFF (survives a page refresh) =====
 // Only screens that are fully re-rendered from S on load are safe to resume on directly;
 // mid-flow screens (checkout, loan detail, success pages…) fall back to a stable parent screen.
-const RESTORABLE_SCREENS=['s-home','s-loans-hub','s-insurance','s-invest','s-bbps','s-ledger','s-history','s-profile','s-notifs','s-schemes','s-referral','s-loyalty','s-documents','s-grievance','s-company','s-request-company','s-login','s-signup','s-identity-verify','s-data-permissions','s-bank'];
+const RESTORABLE_SCREENS=['s-home','s-loans-hub','s-insurance','s-invest','s-bbps','s-ledger','s-history','s-profile','s-notifs','s-schemes','s-referral','s-loyalty','s-documents','s-grievance','s-company','s-request-company','s-login','s-signup','s-permissions','s-identity-verify','s-data-permissions','s-bank'];
 function saveAppState(){
   try{
     const activeEl=document.querySelector('.screen.active');
@@ -50,7 +50,7 @@ function restoreAppState(){
     if(saved.bottomNavVisible) document.getElementById('bottomNav').style.display='flex';
     applyProfileFields();
     renderLoansHub();renderLedger();renderNotifs();renderLangList();renderHistory();renderDocuments();renderGrievances();
-    renderPolicies();renderInvestments();renderBbpsHistory();renderLoyalty();renderSakhi();renderDataPermissions();
+    renderPolicies();renderInvestments();renderBbpsHistory();renderLoyalty();renderSakhi();renderDataPermissions();renderPermissions();
     let target=saved.activeScreen;
     if(!RESTORABLE_SCREENS.includes(target)) target=saved.bottomNavVisible?'s-home':'s-splash';
     if(saved.bottomNavVisible) navTo(target); else go(target);

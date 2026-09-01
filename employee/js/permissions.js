@@ -1,28 +1,35 @@
-// Neev Employee App — permission requests asked one at a time, like a UPI app (camera, location, SMS, contacts).
+// Neev Employee App — App Permissions: one consolidated page with toggles for Camera/Location/
+// SMS/Contacts (device access), same pattern as the later Data Permissions screen (Step 2 of 8).
+// Unlike Data Permissions, none of these are "Required" — declining one just degrades a feature
+// (e.g. no camera means manual PAN/Aadhaar entry), so Continue is never blocked here.
 const PERMISSIONS=[
-  { icon:'📷', title:'Allow camera access', desc:'Needed to scan your PAN, Aadhaar, and QR codes for bill payments.', key:'camera' },
-  { icon:'📍', title:'Allow location access', desc:'Helps us verify your region and keep your account secure.', key:'location' },
-  { icon:'💬', title:'Allow SMS access', desc:"Lets us auto-fill the OTP so you don't have to type it yourself.", key:'sms' },
-  { icon:'👥', title:'Allow contacts access', desc:'Makes it easy to invite colleagues and earn referral rewards.', key:'contacts' }
+  { key:'camera', icon:'📷', title:'Camera', desc:'Needed to scan your PAN, Aadhaar, and QR codes for bill payments.' },
+  { key:'location', icon:'📍', title:'Location', desc:'Helps us verify your region and keep your account secure.' },
+  { key:'sms', icon:'💬', title:'SMS', desc:"Lets us auto-fill the OTP so you don't have to type it yourself." },
+  { key:'contacts', icon:'👥', title:'Contacts', desc:'Makes it easy to invite colleagues and earn referral rewards.' }
 ];
-let permIndex=0;
 function startPermissions(){
-  permIndex=0;
-  showPermission();
+  renderPermissions();
   go('s-permissions');
 }
-function showPermission(){
-  const p=PERMISSIONS[permIndex];
-  document.getElementById('permIcon').textContent=p.icon;
-  document.getElementById('permTitle').textContent=p.title;
-  document.getElementById('permDesc').textContent=p.desc;
-  document.getElementById('permProgress').textContent=(permIndex+1)+' of '+PERMISSIONS.length;
+function renderPermissions(){
+  const granted=PERMISSIONS.filter(p=>S.permissions[p.key]).length;
+  document.getElementById('permGrantedCount').textContent=granted;
+  document.getElementById('permCounterBar').style.width=(granted/PERMISSIONS.length*100)+'%';
+  PERMISSIONS.forEach(p=>{
+    document.getElementById('permToggle-'+p.key).classList.toggle('on',!!S.permissions[p.key]);
+  });
+  document.getElementById('permGrantAllBtn').textContent = granted===PERMISSIONS.length ? 'All permissions allowed ✓' : 'Allow All Permissions';
 }
-function respondPermission(allowed){
-  const p=PERMISSIONS[permIndex];
-  S.permissions[p.key]=allowed;
-  toast(allowed ? p.title.replace('Allow ','')+' allowed' : 'Skipped: '+p.title.replace('Allow ','').toLowerCase());
-  permIndex++;
-  if(permIndex<PERMISSIONS.length){ showPermission(); }
-  else { go('s-signup'); }
+function togglePermission(key){
+  S.permissions[key]=!S.permissions[key];
+  renderPermissions();
+}
+function toggleAllPermissions(){
+  const allOn=PERMISSIONS.every(p=>S.permissions[p.key]);
+  PERMISSIONS.forEach(p=>S.permissions[p.key]=!allOn);
+  renderPermissions();
+}
+function continueFromPermissions(){
+  go('s-signup');
 }
