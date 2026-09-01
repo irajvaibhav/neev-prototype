@@ -31,5 +31,5 @@ function toggleAllPermissions(){
   renderPermissions();
 }
 function continueFromPermissions(){
-  go('s-login');
+  go('s-signup-success');
 }
