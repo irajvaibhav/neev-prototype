@@ -44,6 +44,7 @@ label.field-label{display:block;font-size:13px;font-weight:600;color:var(--muted
 .meter-fill{height:100%;background:linear-gradient(90deg,var(--marigold-500),#FFC862);border-radius:6px;transition:width .5s ease;}
 .meter-foot{display:flex;justify-content:space-between;font-size:12px;opacity:.8;margin-top:8px;}
 .bottomnav{position:absolute;bottom:0;left:0;right:0;height:78px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:30;padding-bottom:14px;box-shadow:0 -4px 16px rgba(18,36,32,0.05);}
+.navbtn-group{flex:1;display:flex;}
 .navbtn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;background:none;border:none;min-height:48px;}
 .navbtn.active{color:var(--teal-700);}
 .navbtn svg{width:22px;height:22px;}
