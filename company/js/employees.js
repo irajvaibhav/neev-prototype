@@ -25,7 +25,9 @@ function renderEmployees(){
   html += '</tbody></table>';
   document.getElementById('empTable').innerHTML = html;
 }
+let currentEmpDetailIdx=null;
 function openEmpDetail(idx){
+  currentEmpDetailIdx=idx;
   const e = EMPS[idx];
   document.getElementById('ed-name').textContent = e.name;
   document.getElementById('ed-ecn').textContent = e.ecn;
@@ -48,7 +50,34 @@ function openEmpDetail(idx){
   document.getElementById('ed-scoreExp').textContent=experienceScore(e)+' / 40';
   document.getElementById('ed-scoreSalary').textContent=salaryScore(e)+' / 30';
   document.getElementById('ed-scoreFeedback').textContent=feedbackScore(e)+' / 30 ('+(e.rating||3)+'★)';
+  renderStarRow(e.rating||3);
   nav('emp-detail');
+}
+function renderStarRow(rating){
+  const row=document.getElementById('ed-starRow');
+  row.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const star=document.createElement('span');
+    star.textContent = i<=rating ? '★' : '☆';
+    star.style.cursor='pointer';
+    star.style.color = i<=rating ? 'var(--m5)' : 'var(--brd)';
+    star.onclick=()=>setEmpRating(i);
+    row.appendChild(star);
+  }
+}
+function setEmpRating(stars){
+  const e=EMPS[currentEmpDetailIdx];
+  e.rating=stars;
+  const score=employeeScore(e);const sl=scoreLabel(score);
+  document.getElementById('ed-scoreTotal').textContent=score;
+  document.getElementById('ed-scoreTotal').style.color=sl.color;
+  document.getElementById('ed-scoreLabel').textContent=sl.label;
+  document.getElementById('ed-scoreLabel').style.background=sl.color;
+  document.getElementById('ed-scoreFeedback').textContent=feedbackScore(e)+' / 30 ('+stars+'★)';
+  renderStarRow(stars);
+  logAction('Rated '+e.name+' '+stars+' stars');
+  renderEmployees();
+  renderDashboard();
 }
 function flagExit(){
   toast('Employee flagged for exit. Loan eligibility frozen. FnF initiated.');
