@@ -134,11 +134,12 @@
     </div>
   </div>
 
-  <div class="stat-grid">
+  <div class="stat-grid" style="grid-template-columns:repeat(5,1fr);">
     <div class="stat-card c-purple"><div class="lbl">Total AUM</div><div class="val">₹18.4L</div><div class="formula">→ Active outstanding, 3 companies</div></div>
     <div class="stat-card c-blue"><div class="lbl">Active Loans</div><div class="val">142</div><div class="formula">→ Loan.status = Active</div></div>
     <div class="stat-card c-green"><div class="lbl">Collection Efficiency</div><div class="val">95%</div><div class="formula">→ Weighted avg, last cycle</div></div>
     <div class="stat-card c-red"><div class="lbl">NPA Ratio</div><div class="val">1.2%</div><div class="formula">→ NPA outstanding / AUM</div></div>
+    <div class="stat-card" style="border-top-color:var(--m5);"><div class="lbl">Companies in Pipeline</div><div class="val">2</div><div class="formula">→ Onboarding pipeline, pre-live</div></div>
   </div>
 
   <div class="row2">
@@ -537,11 +538,115 @@
   <div class="topbar"><h1>Lead capture — employee demand</h1></div>
   <p style="color:var(--mu);font-size:13px;margin-bottom:14px;">Employees who requested their company via "My company is not listed." Use this demand to pitch companies.</p>
   <table class="tbl"><thead><tr><th>Company requested</th><th>Employee requests</th><th>Latest request</th><th>Status</th><th>Action</th></tr></thead><tbody>
-    <tr><td><b>Swiggy Delivery Hub</b></td><td style="font-weight:700;color:var(--t9);">42</td><td>30 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td><button class="btn btn-dark btn-sm" onclick="toast('Sales outreach initiated for Swiggy')">Start outreach</button></td></tr>
-    <tr><td><b>Flipkart Warehouse</b></td><td style="font-weight:700;color:var(--t9);">28</td><td>29 Aug 2026</td><td><span class="badge badge-info">Contacted</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Follow-up scheduled')">Follow up</button></td></tr>
-    <tr><td><b>Urban Company</b></td><td style="font-weight:700;color:var(--t9);">15</td><td>28 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td><button class="btn btn-dark btn-sm" onclick="toast('Sales outreach initiated')">Start outreach</button></td></tr>
-    <tr><td><b>Dunzo Delivery</b></td><td>7</td><td>27 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td><button class="btn btn-outline btn-sm">Start outreach</button></td></tr>
+    <tr><td><b>Swiggy Delivery Hub</b></td><td style="font-weight:700;color:var(--t9);">42</td><td>30 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td style="display:flex;gap:6px;"><button class="btn btn-dark btn-sm" onclick="toast('Sales outreach initiated for Swiggy')">Start outreach</button><button class="btn btn-outline btn-sm" onclick="nav('saral-report')">📋 Saral Report</button></td></tr>
+    <tr><td><b>Flipkart Warehouse</b></td><td style="font-weight:700;color:var(--t9);">28</td><td>29 Aug 2026</td><td><span class="badge badge-info">Contacted</span></td><td style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="toast('Follow-up scheduled')">Follow up</button><button class="btn btn-outline btn-sm" onclick="toast('Saral Report not yet generated for this lead')">📋 Saral Report</button></td></tr>
+    <tr><td><b>Urban Company</b></td><td style="font-weight:700;color:var(--t9);">15</td><td>28 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td style="display:flex;gap:6px;"><button class="btn btn-dark btn-sm" onclick="toast('Sales outreach initiated')">Start outreach</button><button class="btn btn-outline btn-sm" onclick="toast('Saral Report not yet generated for this lead')">📋 Saral Report</button></td></tr>
+    <tr><td><b>Dunzo Delivery</b></td><td>7</td><td>27 Aug 2026</td><td><span class="badge badge-warn">Not contacted</span></td><td style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm">Start outreach</button><button class="btn btn-outline btn-sm" onclick="toast('Saral Report not yet generated for this lead')">📋 Saral Report</button></td></tr>
   </tbody></table>
+</div>
+
+<!-- ===== SARAL REPORT (company due-diligence, mocked for one lead) ===== -->
+<div class="screen" id="s-saral-report">
+  <div class="topbar"><h1><span style="cursor:pointer;color:var(--t7);" onclick="nav('leads')">← Lead capture</span> / Saral Report</h1><div class="topbar-right"><button class="btn btn-outline btn-sm" onclick="toast('Report downloaded as PDF')">📥 Download</button></div></div>
+  <p style="color:var(--mu);font-size:13px;margin-bottom:14px;">Automated due-diligence on a prospective employer partner — pulled from registry, GST, bureau, and digital-footprint sources — before Neev decides whether to onboard them as a payroll-deduction channel.</p>
+
+  <!-- Header -->
+  <div class="card" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+    <div class="saral-gauge" style="background:conic-gradient(var(--ok) 0% 78.2%, var(--brd) 78.2% 100%);">
+      <div class="saral-gauge-inner"><b>782</b><span>/ 1000</span></div>
+    </div>
+    <div style="flex:1;min-width:220px;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><b style="font-size:18px;">Swiggy Delivery Hub</b><span class="badge badge-ok">Good — recommended with conditions</span></div>
+      <p style="font-size:12.5px;color:var(--mu);margin-top:6px;">Sector: Food delivery / gig logistics · Requested channel for ~3,800 riders (self-declared) · Report generated 01 Sep 2026</p>
+    </div>
+    <div style="text-align:right;">
+      <div class="detail-row" style="border:none;"><span>Data coverage</span><b>7 of 9 sources (78%)</b></div>
+      <div class="progress-bar" style="width:160px;"><div class="progress-fill" style="width:78%;"></div></div>
+    </div>
+  </div>
+
+  <!-- Data sources -->
+  <div class="card">
+    <b style="font-size:13px;display:block;margin-bottom:10px;">Data sources</b>
+    <span class="source-chip ok">✓ MCA / ROC Registry</span>
+    <span class="source-chip ok">✓ GST Filing Status</span>
+    <span class="source-chip ok">✓ PAN Verification</span>
+    <span class="source-chip ok">✓ Promoter CIBIL Check</span>
+    <span class="source-chip ok">✓ Bank Statement Analysis</span>
+    <span class="source-chip ok">✓ EPFO Compliance</span>
+    <span class="source-chip ok">✓ Litigation / NCLT Check</span>
+    <span class="source-chip missing">○ Digital Footprint &amp; Reviews</span>
+    <span class="source-chip missing">○ Trade Reference Check</span>
+  </div>
+
+  <!-- Executive summary sub-scores -->
+  <div class="card">
+    <b style="font-size:13px;display:block;margin-bottom:10px;">Executive summary — composite score breakdown</b>
+    <div class="row-flex">
+      <div class="subscore-card"><div class="ring" style="background:var(--ok);">245<br>/300</div><div class="sc-lbl">Registry &amp; Compliance</div></div>
+      <div class="subscore-card"><div class="ring" style="background:var(--t7);">210<br>/300</div><div class="sc-lbl">Financial Health</div></div>
+      <div class="subscore-card"><div class="ring" style="background:var(--t7);">198<br>/250</div><div class="sc-lbl">Promoter Background</div></div>
+      <div class="subscore-card"><div class="ring" style="background:var(--ok);">129<br>/150</div><div class="sc-lbl">Digital Footprint &amp; Scale</div></div>
+    </div>
+  </div>
+
+  <!-- Key metrics -->
+  <div class="stat-grid">
+    <div class="stat-card"><div class="lbl">Est. monthly payroll outflow</div><div class="val" style="font-size:20px;">₹1.8 Cr</div></div>
+    <div class="stat-card"><div class="lbl">Verified headcount</div><div class="val" style="font-size:20px;">3,200</div><div class="sub">vs 3,800 self-declared (84% match)</div></div>
+    <div class="stat-card"><div class="lbl">Annual GST turnover</div><div class="val" style="font-size:20px;">₹142 Cr</div></div>
+    <div class="stat-card"><div class="lbl">Promoter CIBIL score</div><div class="val" style="font-size:20px;color:var(--ok);">764</div></div>
+  </div>
+
+  <!-- Critical ratios -->
+  <div class="card">
+    <b style="font-size:13px;display:block;margin-bottom:10px;">Critical ratios</b>
+    <div class="row-flex">
+      <div class="ratio-card"><div class="lbl">Debt-to-Equity</div><div class="val" style="color:var(--ok);">1.4x</div><div style="font-size:11px;color:var(--mu);">policy cap 2x</div></div>
+      <div class="ratio-card"><div class="lbl">Current Ratio</div><div class="val" style="color:var(--ok);">1.1x</div><div style="font-size:11px;color:var(--mu);">minimum 1x</div></div>
+      <div class="ratio-card"><div class="lbl">GST Turnover Consistency</div><div class="val" style="color:var(--ok);">92%</div><div style="font-size:11px;color:var(--mu);">minimum 80%</div></div>
+      <div class="ratio-card"><div class="lbl">Annualised Attrition</div><div class="val" style="color:var(--m6);">38%</div><div style="font-size:11px;color:var(--mu);">gig-logistics avg ~45%</div></div>
+    </div>
+  </div>
+
+  <!-- AI-driven risk insights -->
+  <div class="card">
+    <b style="font-size:13px;display:block;margin-bottom:10px;">AI-driven risk insights</b>
+    <div class="row-flex" style="align-items:flex-start;">
+      <div class="rio-col">
+        <p style="font-size:11px;font-weight:700;color:var(--ok);text-transform:uppercase;margin-bottom:8px;">Strengths</p>
+        <div class="rio-item strength"><b>Consistent GST filings</b><p>24 straight months, no defaults or late filings.</p></div>
+        <div class="rio-item strength"><b>Clean promoter background</b><p>CIBIL 764, no adverse legal or NCLT history found.</p></div>
+        <div class="rio-item strength"><b>Well capitalised</b><p>Series D funded, healthy balance-sheet liquidity.</p></div>
+      </div>
+      <div class="rio-col">
+        <p style="font-size:11px;font-weight:700;color:var(--err);text-transform:uppercase;margin-bottom:8px;">Risks</p>
+        <div class="rio-item risk"><b>High workforce attrition</b><p>38% annualised — typical for gig logistics, but affects long-term channel stability.</p></div>
+        <div class="rio-item risk"><b>Headcount variance</b><p>Self-declared 3,800 riders vs 3,200 verified via EPFO — 16% gap.</p></div>
+        <div class="rio-item risk"><b>No prior EWA relationship</b><p>No existing salary-advance partnership on file to benchmark repayment behaviour.</p></div>
+      </div>
+      <div class="rio-col">
+        <p style="font-size:11px;font-weight:700;color:var(--t7);text-transform:uppercase;margin-bottom:8px;">Opportunities</p>
+        <div class="rio-item opportunity"><b>Organic employee demand</b><p>42 riders already requested Neev via the app — bottom-up pull before any outreach.</p></div>
+        <div class="rio-item opportunity"><b>Large volume potential</b><p>3,200+ verified workforce implies high per-company loan volume once live.</p></div>
+        <div class="rio-item opportunity"><b>HRMS-ready</b><p>Prior outreach signalled willingness to integrate a payroll API.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final recommendation -->
+  <div class="card" style="border-color:var(--ok);background:#F4FBF7;">
+    <b style="font-size:14px;color:var(--t9);">Final recommendation — Onboard with conditions</b>
+    <p style="font-size:12px;color:var(--mu);margin:6px 0 12px;">Final go/no-go still requires sales + compliance sign-off. This score is informational, same as employee scoring on the employer side.</p>
+    <div class="detail-row"><span>1. Contract + HRMS API integration</span><b>Required before disbursement access</b></div>
+    <div class="detail-row"><span>2. Initial credit limit</span><b>Capped at ₹50,00,000 for first 3 months</b></div>
+    <div class="detail-row"><span>3. Headcount re-verification</span><b>Via EPFO, before any limit increase</b></div>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-success" onclick="toast('Swiggy Delivery Hub moved to onboarding pipeline')">✓ Approve &amp; move to pipeline</button>
+      <button class="btn btn-outline" onclick="toast('Additional info requested from Swiggy')">Request more info</button>
+      <button class="btn btn-danger" onclick="toast('Lead declined')">✕ Decline</button>
+    </div>
+  </div>
 </div>
 
 <!-- ===== LOAN ORIGINATION ===== -->
