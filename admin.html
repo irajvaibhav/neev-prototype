@@ -69,7 +69,6 @@
     </div>
     <div class="sb-children" id="reports-children" style="display:none;">
       <div class="sb-item sb-child" data-s="book" onclick="nav('book')">Loan book &amp; portfolio</div>
-      <div class="sb-item sb-child" data-s="ledger" onclick="nav('ledger')">Accounting ledger</div>
     </div>
 
     <div class="sb-parent" onclick="toggleSbGroup('admin')">
@@ -548,7 +547,6 @@
 <!-- ===== SARAL REPORT (company due-diligence, mocked for one lead) ===== -->
 <div class="screen" id="s-saral-report">
   <div class="topbar"><h1><span style="cursor:pointer;color:var(--t7);" onclick="nav('leads')">← Lead capture</span> / Saral Report</h1><div class="topbar-right"><button class="btn btn-outline btn-sm" onclick="toast('Report downloaded as PDF')">📥 Download</button></div></div>
-  <p style="color:var(--mu);font-size:13px;margin-bottom:14px;">Neev shared this company's PAN, Aadhaar, and bank statements with Saralya for due diligence. Saralya returned this report so Neev can decide whether to onboard them as a payroll-deduction channel.</p>
 
   <!-- Header -->
   <div class="card" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
@@ -802,34 +800,6 @@
   <div class="card">
     <b style="font-size:13px;">Monthly trend</b>
     <div style="display:flex;align-items:flex-end;gap:10px;height:120px;padding-top:16px;" id="bookChart"></div>
-  </div>
-</div>
-
-<!-- ===== ACCOUNTING ===== -->
-<div class="screen" id="s-ledger">
-  <div class="topbar"><h1>Accounting ledger</h1><div class="topbar-right"><button class="btn btn-outline btn-sm" onclick="toast('Ledger exported')">📥 Export</button></div></div>
-  <div class="row2">
-    <div class="card">
-      <b style="font-size:13px;">Income account</b>
-      <p style="font-size:12px;color:var(--mu);margin:4px 0 10px;">Service charges debited and secured</p>
-      <div class="detail-row"><span>Aug 2026 income</span><b>₹1,84,000</b></div>
-      <div class="detail-row"><span>Jul 2026 income</span><b>₹1,56,000</b></div>
-      <div class="detail-row"><span>Jun 2026 income</span><b>₹1,22,000</b></div>
-    </div>
-    <div class="card">
-      <b style="font-size:13px;">GST account (IGST)</b>
-      <p style="font-size:12px;color:var(--mu);margin:4px 0 10px;">IGST collected per transaction</p>
-      <div class="detail-row"><span>Aug 2026 GST</span><b>₹33,120</b></div>
-      <div class="detail-row"><span>Jul 2026 GST</span><b>₹28,080</b></div>
-      <div class="detail-row"><span>Jun 2026 GST</span><b>₹21,960</b></div>
-    </div>
-  </div>
-  <div class="card">
-    <b style="font-size:13px;">Demand promissory notes (DP)</b>
-    <div class="detail-row" style="margin-top:8px;"><span>Open DPs</span><b>142</b></div>
-    <div class="detail-row"><span>Total principal on open DPs</span><b>₹18,40,000</b></div>
-    <div class="detail-row"><span>DPs closed this month</span><b>286</b></div>
-    <div class="detail-row"><span>Overdue DPs</span><b style="color:var(--err);">3</b></div>
   </div>
 </div>
 
