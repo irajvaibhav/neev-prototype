@@ -60,5 +60,5 @@ function logout(){
 }
 
 function renderAll(){
-  renderDashboard();renderVerify();renderEmployees();renderPayroll();renderSettlement();renderRecon();renderApprovals();renderAnalyticsChart();
+  renderDashboard();renderVerify();renderEmployees();renderPayroll();renderSettlement();renderRecon();renderApprovals();renderAnalyticsChart();renderCompanyProfile();
 }

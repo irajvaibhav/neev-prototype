@@ -1,8 +1,11 @@
 // Neev Employer Portal — mock data: companies, employees, pending queues.
 const COMPANIES = {
-  buildright: { name:'BuildRight Constructions', sector:'Construction', employees:120, onNeev:24, cin:'U45201DL2015PTC280001', gst:'07AABCB1234C1Z5', pan:'AABCB1234C', tan:'DELB12345C', password:'demo123' },
-  quickserve: { name:'QuickServe Logistics', sector:'Logistics', employees:340, onNeev:67, cin:'U63090MH2017PTC300002', gst:'27AABCQ5678D1Z2', pan:'AABCQ5678D', tan:'MUMQ54321C', password:'demo123' },
-  secureguard: { name:'SecureGuard Facilities', sector:'Security & FM', employees:210, onNeev:38, cin:'U74999KA2016PTC310003', gst:'29AABCS9012E1Z8', pan:'AABCS9012E', tan:'BLRS98765C', password:'demo123' }
+  buildright: { name:'BuildRight Constructions', sector:'Construction', employees:120, onNeev:24, cin:'U45201DL2015PTC280001', gst:'07AABCB1234C1Z5', pan:'AABCB1234C', tan:'DELB12345C', password:'demo123',
+    hrms:'API — Keka', ip:'103.21.58.140', companyAddr:'Plot 14, Sector 8, Dwarka, New Delhi, 110077', hoAddr:'Plot 14, Sector 8, Dwarka, New Delhi, 110077', contact:'Priya Sharma (HR Manager)', email:'priya.hr@buildright.in' },
+  quickserve: { name:'QuickServe Logistics', sector:'Logistics', employees:340, onNeev:67, cin:'U63090MH2017PTC300002', gst:'27AABCQ5678D1Z2', pan:'AABCQ5678D', tan:'MUMQ54321C', password:'demo123',
+    hrms:'API — greytHR', ip:'182.74.10.203', companyAddr:'4th Floor, Andheri East, Mumbai, Maharashtra, 400069', hoAddr:'Tower B, BKC, Mumbai, Maharashtra, 400051', contact:'Rakesh Menon (HR Head)', email:'rakesh.menon@quickserve.in' },
+  secureguard: { name:'SecureGuard Facilities', sector:'Security & FM', employees:210, onNeev:38, cin:'U74999KA2016PTC310003', gst:'29AABCS9012E1Z8', pan:'AABCS9012E', tan:'BLRS98765C', password:'demo123',
+    hrms:'Manual Excel upload', ip:'157.32.88.19', companyAddr:'2nd Cross, Koramangala, Bengaluru, Karnataka, 560034', hoAddr:'2nd Cross, Koramangala, Bengaluru, Karnataka, 560034', contact:'Anita Rao (HR Manager)', email:'anita.rao@secureguard.in' }
 };
 
 // Companies that self-registered this session via the sign-up flow (not pre-seeded demo companies).
