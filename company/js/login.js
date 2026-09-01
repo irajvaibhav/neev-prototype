@@ -3,14 +3,34 @@ function toggleLoginBranch(){
   const role=document.querySelector('input[name="loginRole"]:checked').value;
   document.getElementById('loginBranchRow').style.display = role==='branch' ? 'block' : 'none';
 }
-function doLogin(){
+function findLoginCompany(){
   const cin = document.getElementById('loginCin').value.trim().toUpperCase();
-  const pass = document.getElementById('loginPass').value;
-  if(!cin){ toast('Enter your CIN number'); return; }
-  if(!pass){ toast('Enter your password'); return; }
-  let comp = Object.values(COMPANIES).find(c=>c.cin===cin) || REGISTERED_COMPANIES.find(c=>c.cin===cin);
-  if(!comp){ toast('CIN not recognised. Check the number or register your company.'); return; }
-  if(comp.password!==pass){ toast('Incorrect password'); return; }
+  return Object.values(COMPANIES).find(c=>c.cin===cin) || REGISTERED_COMPANIES.find(c=>c.cin===cin);
+}
+function sendCompanyOtp(){
+  if(!findLoginCompany()){ toast('Company ID not recognised. Check the CIN or register your company.'); return; }
+  const mobile = document.getElementById('loginMobile').value.trim();
+  if(mobile.length<10){ toast('Enter a valid 10-digit mobile number'); return; }
+  document.getElementById('loginOtpBlock').style.display='block';
+  document.getElementById('loginSendOtpBtn').style.display='none';
+  toast('OTP sent to '+mobile);
+  let t=30;
+  const iv=setInterval(()=>{
+    t--;
+    const timerEl=document.getElementById('loginResendTimer');
+    if(timerEl) timerEl.textContent=t;
+    if(t<=0){
+      clearInterval(iv);
+      document.getElementById('loginResendTxt').innerHTML='<span style="color:var(--t7);font-weight:700;cursor:pointer;" onclick="sendCompanyOtp()">Resend OTP</span>';
+    }
+  },1000);
+}
+function doLogin(){
+  const comp = findLoginCompany();
+  if(!comp){ toast('Company ID not recognised. Check the CIN or register your company.'); return; }
+  if(document.getElementById('loginOtpBlock').style.display!=='block'){ toast('Send an OTP to your registered mobile first'); return; }
+  const otp = document.getElementById('loginOtp').value.trim();
+  if(otp.length<4){ toast('Enter the 4-digit OTP'); return; }
   currentCompany = comp;
 
   const role = document.querySelector('input[name="loginRole"]:checked').value;

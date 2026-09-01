@@ -24,10 +24,16 @@
       <h2 style="font-size:20px;color:var(--t9);">Neev — Employer Portal</h2>
       <p style="color:var(--mu);font-size:13px;margin-top:6px;">Manage your employees' salary advances</p>
     </div>
-    <label class="fl">CIN number</label>
+    <label class="fl">Company ID (CIN)</label>
     <input type="text" id="loginCin" placeholder="e.g. U45201DL2015PTC280001" style="margin-bottom:12px;text-transform:uppercase;">
-    <label class="fl">Password</label>
-    <input type="password" id="loginPass" placeholder="Enter password" value="demo123" style="margin-bottom:16px;">
+    <label class="fl">Registered mobile number</label>
+    <input type="tel" id="loginMobile" placeholder="98XXXXXXXX" maxlength="10" style="margin-bottom:12px;">
+    <button class="btn btn-outline" style="width:100%;margin-bottom:16px;" id="loginSendOtpBtn" onclick="sendCompanyOtp()">Send OTP</button>
+    <div id="loginOtpBlock" style="display:none;margin-bottom:16px;">
+      <label class="fl">Enter 4-digit OTP</label>
+      <input type="text" id="loginOtp" placeholder="e.g. 1234" maxlength="4" style="margin-bottom:8px;">
+      <p style="font-size:12px;color:var(--mu);" id="loginResendTxt">Resend OTP in <b id="loginResendTimer">30</b>s</p>
+    </div>
     <div style="display:flex;gap:16px;margin-bottom:12px;">
       <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t9);cursor:pointer;"><input type="radio" name="loginRole" value="company" checked onchange="toggleLoginBranch()"> Company Admin</label>
       <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t9);cursor:pointer;"><input type="radio" name="loginRole" value="branch" onchange="toggleLoginBranch()"> Area Manager</label>
@@ -42,7 +48,7 @@
     <p style="text-align:center;font-size:12px;color:var(--mu);margin-top:14px;">Only authorised HR personnel can access this portal. Each company sees only their own data.</p>
     <p style="text-align:center;font-size:12px;color:var(--mu);margin-top:10px;">New company? <span style="color:var(--t7);font-weight:700;cursor:pointer;" onclick="showSignup()">Register here</span></p>
     <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--brd);">
-      <p style="font-size:11px;color:var(--mu);text-align:center;">Demo: U45201DL2015PTC280001 (BuildRight) · U63090MH2017PTC300002 (QuickServe) · U74999KA2016PTC310003 (SecureGuard) · password demo123</p>
+      <p style="font-size:11px;color:var(--mu);text-align:center;">Demo: U45201DL2015PTC280001 (BuildRight) · U63090MH2017PTC300002 (QuickServe) · U74999KA2016PTC310003 (SecureGuard) · any mobile number + OTP works</p>
     </div>
   </div>
 </div>
