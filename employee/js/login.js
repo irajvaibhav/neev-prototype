@@ -4,6 +4,14 @@ function completeLogin(){
   document.getElementById('bottomNav').style.display='flex';
   navTo('s-home');
 }
+// Ends the session and returns to the Log in screen. Doesn't wipe loan/points history —
+// logging out shouldn't erase your account, same as any real app — completeLogin() picks
+// right back up from wherever S already is.
+function logoutEmployee(){
+  document.getElementById('bottomNav').style.display='none';
+  toast('You have been logged out');
+  go('s-login');
+}
 function sendOtp(){
   const m=document.getElementById('mobileInput').value;
   if(m.length<10){toast('Enter a 10-digit mobile number');return;}
