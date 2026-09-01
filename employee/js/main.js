@@ -5,6 +5,6 @@ tickClock();setInterval(tickClock,30000);
 if(!restoreAppState()){
   renderLoansHub();renderLedger();renderNotifs();renderLangList();renderHistory();renderDocuments();renderGrievances();
   renderPolicies();renderInvestments();renderBbpsHistory();renderLoyalty();renderSakhi();
-  openLangModal();
 }
+if(document.getElementById('s-splash').classList.contains('active')) openLangModal();
 setTimeout(()=>indexTexts(),100);
