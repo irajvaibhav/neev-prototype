@@ -8,6 +8,14 @@ function sendSignupOtp(){
   const iv=setInterval(()=>{t--;el.textContent=t;if(t<=0){clearInterval(iv);document.getElementById('signupResendTxt').innerHTML='<span style="color:var(--teal-700);font-weight:700;cursor:pointer;">Resend OTP</span>';}},1000);
 }
 
+// ===== IDENTITY VERIFICATION TRACKER (PAN -> Aadhaar -> Photo, all on one screen) =====
+function idvSetNodeStatus(node,status){
+  const el=document.getElementById('idvNode'+node);
+  el.className='idv-node '+status; // pending | active | done
+  el.querySelector('.ring').textContent=status==='done'?'✓':'○';
+  document.getElementById('idvStatus'+node).textContent=status==='done'?'Done':status==='active'?'In progress':'Pending';
+}
+
 // ===== PAN =====
 const PAN_SAMPLE={name:'Ramesh Kumar',pan:'ABCPK1234F',dob:'15/06/1994'};
 function capturePan(){
@@ -34,7 +42,16 @@ function confirmPan(){
   if(pan.length<10){toast('Enter a valid PAN number');return;}
   S.name=name;S.pan=pan;
   toast('Verifying PAN with Income Tax database…');
-  setTimeout(()=>go('s-signup-aadhaar'),900);
+  setTimeout(()=>{
+    document.getElementById('panFormBlock').style.display='none';
+    document.getElementById('panDoneSummary').textContent=name+' · '+pan;
+    document.getElementById('panDoneBlock').style.display='block';
+    idvSetNodeStatus('Pan','done');
+    idvSetNodeStatus('Aadhaar','active');
+    document.getElementById('idvAadhaarSection').style.display='block';
+    document.getElementById('idvVoiceLabel').textContent='Aadhaar capture';
+    document.getElementById('idvAadhaarSection').scrollIntoView({behavior:'smooth',block:'start'});
+  },900);
 }
 
 // ===== AADHAAR =====
@@ -70,5 +87,25 @@ function confirmAadhaar(){
   document.getElementById('profilePan').textContent=maskedPan;
   const maskedAadhaar='XXXX XXXX '+aadhaar.replace(/\s/g,'').slice(-4);
   document.getElementById('profileAadhaar').textContent=maskedAadhaar;
-  setTimeout(()=>go('s-login'),900);
+  setTimeout(()=>{
+    document.getElementById('aadhaarFormBlock').style.display='none';
+    document.getElementById('aadhaarDoneSummary').textContent='XXXX XXXX '+aadhaar.replace(/\s/g,'').slice(-4);
+    document.getElementById('aadhaarDoneBlock').style.display='block';
+    idvSetNodeStatus('Aadhaar','done');
+    idvSetNodeStatus('Photo','active');
+    document.getElementById('idvPhotoSection').style.display='block';
+    document.getElementById('idvVoiceLabel').textContent='Photo capture';
+    document.getElementById('idvPhotoSection').scrollIntoView({behavior:'smooth',block:'start'});
+  },900);
+}
+
+// ===== LIVE PHOTO =====
+function capturePhoto(){
+  document.getElementById('photoCaptureBlock').style.display='none';
+  document.getElementById('photoScanBlock').style.display='block';
+  setTimeout(()=>{
+    document.getElementById('photoScanBlock').style.display='none';
+    document.getElementById('photoDoneBlock').style.display='block';
+    idvSetNodeStatus('Photo','done');
+  },1400);
 }

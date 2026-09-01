@@ -85,102 +85,216 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
       </div>
       <p class="muted" id="signupResendTxt">Resend OTP in <b id="signupResendTimer">30</b>s</p>
       <div style="height:12px"></div>
-      <button class="btn btn-dark" onclick="go('s-signup-pan')">Verify &amp; continue</button>
+      <button class="btn btn-dark" onclick="go('s-identity-verify')">Verify &amp; continue</button>
     </div>
     <div style="height:6px"></div>
   </div>
   <p class="muted" style="text-align:center;font-size:13px;">Already verified? <span style="color:var(--teal-700);font-weight:700;cursor:pointer;" onclick="go('s-login')">Log in</span></p>
 </div>
 
-<!-- ===== SIGN UP: PAN CAPTURE ===== -->
-<div class="screen" id="s-signup-pan">
-  <div class="auth-hero">
-    <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-signup')">←</button><h2>Verify PAN</h2></div><button class="icon-btn" onclick="speakScreen('s-signup-pan')">🔊</button></div>
-    <div class="auth-hero-icon">🪪</div>
-    <p class="muted">Take a photo of your PAN card. We will read your details automatically.</p>
-  </div>
-  <div class="auth-card">
+<!-- ===== IDENTITY VERIFICATION (Step 1 of 8): PAN + Aadhaar + Photo, one continuous page ===== -->
+<div class="screen" id="s-identity-verify">
+  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-signup')">←</button><h2>Identify &amp; Verify</h2></div><button class="icon-btn" onclick="speakScreen('s-identity-verify')">🔊</button></div>
 
-  <div id="panCaptureBlock">
-    <div class="card center-col" style="padding:28px 18px;border-style:dashed;cursor:pointer;" onclick="capturePan()">
-      <div style="font-size:34px;margin-bottom:8px;">📷</div>
-      <b style="font-size:14px;">Take PAN card photo</b>
-      <p class="muted" style="font-size:12px;margin-top:4px;">Tap to open camera</p>
-    </div>
-    <p style="text-align:center;font-size:13px;margin-top:10px;">or <span style="color:var(--teal-700);font-weight:700;cursor:pointer;" onclick="showPanManual()">enter details manually</span></p>
+  <div class="wiz-progress">
+    <div class="wiz-progress-top"><span>Step <b>1</b> of 8 — Identify &amp; Verify</span><span class="wiz-progress-pct">13%</span></div>
+    <div class="wiz-bar"><div class="wiz-bar-fill" style="width:13%;"></div></div>
   </div>
 
-  <div id="panScanBlock" style="display:none;">
-    <div class="card center-col" style="padding:22px;">
-      <div style="font-size:26px;">⏳</div>
-      <p class="muted" style="margin-top:8px;">Reading PAN card…</p>
-    </div>
+  <div class="voice-bar">
+    <span class="voice-lang-chip">🇬🇧 EN</span>
+    <button class="voice-play-btn" onclick="speakScreen('s-identity-verify')">▶</button>
+    <span class="voice-label" id="idvVoiceLabel">PAN capture</span>
+    <span class="voice-speaker" onclick="speakScreen('s-identity-verify')">🔊</span>
   </div>
 
-  <div id="panFormBlock" style="display:none;">
-    <div class="card" id="panOcrNote" style="display:none;background:var(--teal-100);border:none;">
-      <p style="font-size:13px;color:var(--teal-900);font-weight:600;">✅ Details read from your PAN card. Check and edit if needed.</p>
+  <div>
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">🔒 Identity Verification <span class="muted" style="font-weight:500;font-size:11.5px;margin-left:auto;">PAN required to start</span></p>
+      <div class="idv-tracker">
+        <div class="idv-node active" id="idvNodePan"><div class="ring">○</div><b>PAN</b><span id="idvStatusPan">In progress</span></div>
+        <div class="idv-connector"></div>
+        <div class="idv-node pending" id="idvNodeAadhaar"><div class="ring">○</div><b>Aadhaar</b><span id="idvStatusAadhaar">Pending</span></div>
+        <div class="idv-connector"></div>
+        <div class="idv-node pending" id="idvNodePhoto"><div class="ring">○</div><b>Photo</b><span id="idvStatusPhoto">Pending</span></div>
+      </div>
     </div>
-    <div class="field-row">
-      <label class="field-label">Full name (as on PAN)</label>
-      <input type="text" id="panName" placeholder="e.g. Ramesh Kumar">
+
+    <!-- 1. PAN -->
+    <div id="idvPanSection">
+      <div class="step-section-head"><span class="step-num-badge">1</span><b style="font-size:15px;">PAN Card</b></div>
+      <div id="panCaptureBlock">
+        <div class="card center-col" style="padding:28px 18px;border-style:dashed;cursor:pointer;" onclick="capturePan()">
+          <div style="font-size:34px;margin-bottom:8px;">📷</div>
+          <b style="font-size:14px;">Take PAN card photo</b>
+          <p class="muted" style="font-size:12px;margin-top:4px;">Tap to open camera</p>
+        </div>
+        <p style="text-align:center;font-size:13px;margin-top:10px;">or <span style="color:var(--teal-700);font-weight:700;cursor:pointer;" onclick="showPanManual()">enter details manually</span></p>
+      </div>
+      <div id="panScanBlock" style="display:none;">
+        <div class="card center-col" style="padding:22px;">
+          <div style="font-size:26px;">⏳</div>
+          <p class="muted" style="margin-top:8px;">Reading PAN card…</p>
+        </div>
+      </div>
+      <div id="panFormBlock" style="display:none;">
+        <div class="card" id="panOcrNote" style="display:none;background:var(--teal-100);border:none;">
+          <p style="font-size:13px;color:var(--teal-900);font-weight:600;">✅ Details read from your PAN card. Check and edit if needed.</p>
+        </div>
+        <div class="field-row">
+          <label class="field-label">Full name (as on PAN)</label>
+          <input type="text" id="panName" placeholder="e.g. Ramesh Kumar">
+        </div>
+        <div class="field-row">
+          <label class="field-label">PAN number</label>
+          <input type="text" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;">
+        </div>
+        <div class="field-row">
+          <label class="field-label">Date of birth</label>
+          <input type="text" id="panDob" placeholder="DD/MM/YYYY">
+        </div>
+        <button class="btn btn-primary" onclick="confirmPan()">Confirm &amp; continue</button>
+      </div>
+      <div id="panDoneBlock" style="display:none;">
+        <div class="card" style="border-color:var(--success);display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">✅</span><div><b style="font-size:13.5px;">PAN verified</b><p class="muted" style="font-size:12px;" id="panDoneSummary">—</p></div></div>
+      </div>
     </div>
-    <div class="field-row">
-      <label class="field-label">PAN number</label>
-      <input type="text" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform:uppercase;">
+
+    <!-- 2. Aadhaar -->
+    <div id="idvAadhaarSection" style="display:none;">
+      <div class="step-section-head"><span class="step-num-badge">2</span><b style="font-size:15px;">Aadhaar Card</b></div>
+      <div id="aadhaarCaptureBlock">
+        <div class="card center-col" style="padding:28px 18px;border-style:dashed;cursor:pointer;" onclick="captureAadhaar()">
+          <div style="font-size:34px;margin-bottom:8px;">📷</div>
+          <b style="font-size:14px;">Take Aadhaar card photo</b>
+          <p class="muted" style="font-size:12px;margin-top:4px;">Tap to open camera</p>
+        </div>
+        <p style="text-align:center;font-size:13px;margin-top:10px;">or <span style="color:var(--teal-700);font-weight:700;cursor:pointer;" onclick="showAadhaarManual()">enter details manually</span></p>
+      </div>
+      <div id="aadhaarScanBlock" style="display:none;">
+        <div class="card center-col" style="padding:22px;">
+          <div style="font-size:26px;">⏳</div>
+          <p class="muted" style="margin-top:8px;">Reading Aadhaar card…</p>
+        </div>
+      </div>
+      <div id="aadhaarFormBlock" style="display:none;">
+        <div class="card" id="aadhaarOcrNote" style="display:none;background:var(--teal-100);border:none;">
+          <p style="font-size:13px;color:var(--teal-900);font-weight:600;">✅ Details read from your Aadhaar card. Check and edit if needed.</p>
+        </div>
+        <div class="field-row">
+          <label class="field-label">Aadhaar number</label>
+          <input type="text" id="aadhaarNumber" placeholder="e.g. 1234 5678 9012" maxlength="14">
+        </div>
+        <div class="field-row">
+          <label class="field-label">Gender</label>
+          <select id="aadhaarGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>
+        </div>
+        <div class="field-row">
+          <label class="field-label">Address (from Aadhaar)</label>
+          <input type="text" id="aadhaarAddr" placeholder="Permanent address">
+        </div>
+        <button class="btn btn-primary" onclick="confirmAadhaar()">Confirm &amp; continue</button>
+      </div>
+      <div id="aadhaarDoneBlock" style="display:none;">
+        <div class="card" style="border-color:var(--success);display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">✅</span><div><b style="font-size:13.5px;">Aadhaar verified</b><p class="muted" style="font-size:12px;" id="aadhaarDoneSummary">—</p></div></div>
+      </div>
     </div>
-    <div class="field-row">
-      <label class="field-label">Date of birth</label>
-      <input type="text" id="panDob" placeholder="DD/MM/YYYY">
+
+    <!-- 3. Photo -->
+    <div id="idvPhotoSection" style="display:none;">
+      <div class="step-section-head"><span class="step-num-badge">3</span><b style="font-size:15px;">Live Photo</b></div>
+      <div id="photoCaptureBlock">
+        <div class="card center-col" style="padding:28px 18px;border-style:dashed;cursor:pointer;" onclick="capturePhoto()">
+          <div style="font-size:34px;margin-bottom:8px;">🤳</div>
+          <b style="font-size:14px;">Take a live selfie</b>
+          <p class="muted" style="font-size:12px;margin-top:4px;">Used to match your face with your PAN &amp; Aadhaar photos</p>
+        </div>
+      </div>
+      <div id="photoScanBlock" style="display:none;">
+        <div class="card center-col" style="padding:22px;">
+          <div style="font-size:26px;">⏳</div>
+          <p class="muted" style="margin-top:8px;">Matching face with ID photos…</p>
+        </div>
+      </div>
+      <div id="photoDoneBlock" style="display:none;">
+        <div class="card center-col" style="padding:22px;border-color:var(--success);">
+          <div style="font-size:28px;">✅</div>
+          <b style="margin-top:8px;">Face matched!</b>
+          <p class="muted" style="font-size:13px;margin-top:4px;">Identity verification complete</p>
+        </div>
+        <button class="btn btn-primary" onclick="renderDataPermissions();go('s-data-permissions')">Continue</button>
+      </div>
     </div>
-    <button class="btn btn-primary" onclick="confirmPan()">Confirm &amp; continue</button>
-  </div>
   </div>
 </div>
 
-<!-- ===== SIGN UP: AADHAAR CAPTURE ===== -->
-<div class="screen" id="s-signup-aadhaar">
-  <div class="auth-hero">
-    <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-signup-pan')">←</button><h2>Verify Aadhaar</h2></div><button class="icon-btn" onclick="speakScreen('s-signup-aadhaar')">🔊</button></div>
-    <div class="auth-hero-icon">🆔</div>
-    <p class="muted">Take a photo of your Aadhaar card. We will read your details automatically.</p>
-  </div>
-  <div class="auth-card">
+<!-- ===== DATA PERMISSIONS (Step 2 of 8): one page, all toggles ===== -->
+<div class="screen" id="s-data-permissions">
+  <div class="topbar"><div class="back-row"><button class="icon-btn" onclick="go('s-identity-verify')">←</button><h2>Data Permissions</h2></div><button class="icon-btn" onclick="speakScreen('s-data-permissions')">🔊</button></div>
 
-  <div id="aadhaarCaptureBlock">
-    <div class="card center-col" style="padding:28px 18px;border-style:dashed;cursor:pointer;" onclick="captureAadhaar()">
-      <div style="font-size:34px;margin-bottom:8px;">📷</div>
-      <b style="font-size:14px;">Take Aadhaar card photo</b>
-      <p class="muted" style="font-size:12px;margin-top:4px;">Tap to open camera</p>
-    </div>
-    <p style="text-align:center;font-size:13px;margin-top:10px;">or <span style="color:var(--teal-700);font-weight:700;cursor:pointer;" onclick="showAadhaarManual()">enter details manually</span></p>
+  <div class="wiz-progress">
+    <div class="wiz-progress-top"><span>Step <b>2</b> of 8 — Data Permissions</span><span class="wiz-progress-pct">25%</span></div>
+    <div class="wiz-bar"><div class="wiz-bar-fill" style="width:25%;"></div></div>
   </div>
 
-  <div id="aadhaarScanBlock" style="display:none;">
-    <div class="card center-col" style="padding:22px;">
-      <div style="font-size:26px;">⏳</div>
-      <p class="muted" style="margin-top:8px;">Reading Aadhaar card…</p>
-    </div>
+  <div class="voice-bar">
+    <span class="voice-lang-chip">🇬🇧 EN</span>
+    <button class="voice-play-btn" onclick="speakScreen('s-data-permissions')">▶</button>
+    <span class="voice-label">Tap to hear guidance</span>
+    <span class="voice-speaker" onclick="speakScreen('s-data-permissions')">🔊</span>
   </div>
 
-  <div id="aadhaarFormBlock" style="display:none;">
-    <div class="card" id="aadhaarOcrNote" style="display:none;background:var(--teal-100);border:none;">
-      <p style="font-size:13px;color:var(--teal-900);font-weight:600;">✅ Details read from your Aadhaar card. Check and edit if needed.</p>
+  <div>
+    <div class="dp-hero">
+      <span class="ic">📋</span>
+      <div><b>Data Permissions</b><p>Review and authorise data access</p></div>
     </div>
-    <div class="field-row">
-      <label class="field-label">Aadhaar number</label>
-      <input type="text" id="aadhaarNumber" placeholder="e.g. 1234 5678 9012" maxlength="14">
+
+    <div class="dp-counter">
+      <div class="dp-counter-top"><span>🛡️ <span id="dpGrantedCount">0</span> of 4 permissions granted</span></div>
+      <div class="wiz-bar"><div class="wiz-bar-fill" id="dpCounterBar" style="width:0%;"></div></div>
     </div>
-    <div class="field-row">
-      <label class="field-label">Gender</label>
-      <select id="aadhaarGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>
+
+    <div class="dp-grant-all" onclick="toggleAllDataPerms()" id="dpGrantAllBtn">Grant All Permissions</div>
+
+    <div class="dp-card">
+      <span class="ic">📊</span>
+      <div class="body">
+        <div class="head"><b>Credit Bureau Check</b><span class="dp-required">Required</span></div>
+        <p>Access your credit report from CIBIL, Experian, or Equifax to assess creditworthiness.</p>
+      </div>
+      <div class="dp-toggle" id="dpToggle-creditBureau" onclick="toggleDataPerm('creditBureau')"></div>
     </div>
-    <div class="field-row">
-      <label class="field-label">Address (from Aadhaar)</label>
-      <input type="text" id="aadhaarAddr" placeholder="Permanent address">
+
+    <div class="dp-card">
+      <span class="ic">🏦</span>
+      <div class="body">
+        <div class="head"><b>Bank Statement Analysis</b><span class="dp-required">Required</span></div>
+        <p>Fetch last 6 months' bank statements via Account Aggregator for income &amp; spending analysis.</p>
+      </div>
+      <div class="dp-toggle" id="dpToggle-bankStatement" onclick="toggleDataPerm('bankStatement')"></div>
     </div>
-    <button class="btn btn-primary" onclick="confirmAadhaar()">Confirm &amp; continue</button>
-  </div>
+
+    <div class="dp-card">
+      <span class="ic">🏢</span>
+      <div class="body">
+        <div class="head"><b>Employer Payroll Access</b><span class="dp-required">Required</span></div>
+        <p>Verify your salary and attendance directly with your employer's HRMS, so we know exactly how much you've earned.</p>
+      </div>
+      <div class="dp-toggle" id="dpToggle-payroll" onclick="toggleDataPerm('payroll')"></div>
+    </div>
+
+    <div class="dp-card">
+      <span class="ic">💬</span>
+      <div class="body">
+        <div class="head"><b>SMS-based Income Signals</b><span class="dp-required">Required</span></div>
+        <p>Read bank &amp; salary SMS alerts as an additional income check, on top of your employer's records.</p>
+      </div>
+      <div class="dp-toggle" id="dpToggle-smsIncome" onclick="toggleDataPerm('smsIncome')"></div>
+    </div>
+
+    <div style="height:6px"></div>
+    <button class="btn btn-primary" id="dpContinueBtn" disabled onclick="continueFromDataPermissions()">Continue</button>
   </div>
 </div>
 
@@ -1051,6 +1165,7 @@ body{background:linear-gradient(160deg,#0B4F45 0%,#0E5C50 40%,#123F38 100%);min-
 <script src="employee/js/loyalty.js"></script>
 <script src="employee/js/i18n.js"></script>
 <script src="employee/js/signup.js"></script>
+<script src="employee/js/data-permissions.js"></script>
 <script src="employee/js/login.js"></script>
 <script src="employee/js/onboarding.js"></script>
 <script src="employee/js/home.js"></script>
